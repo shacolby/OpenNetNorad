@@ -4,7 +4,7 @@
 # All rights reserved.
 
 # This source code is licensed under the BSD-style license found in the
-# LICENSE file in the root directory of this source tree. An additional grant 
+# LICENSE file in the root directory of this source tree. An additional grant
 # of patent rights can be found in the PATENTS file in the same directory.
 
 import atexit
@@ -49,15 +49,6 @@ scheduler = BackgroundScheduler()
 scheduler.start()
 # Shut down the scheduler when exiting the app
 atexit.register(lambda: scheduler.shutdown())
-
-scheduler.add_job(
-    func=disable_old_hosts,
-    trigger=IntervalTrigger(minutes=1),
-    id='clean_job',
-    name='Clean inactive hosts',
-    replace_existing=True
-)
-
 
 class Pong(db.Model):
     """
@@ -296,7 +287,7 @@ def create_log():
                 format(ip_addr, e)
             )
             return jsonify(response)
-            
+
     response = {
         'action': 'update',
         'sucess': True,
@@ -309,6 +300,14 @@ def create_log():
     }
 
     return jsonify(response)
+
+scheduler.add_job(
+    func=disable_old_hosts,
+    trigger=IntervalTrigger(minutes=1),
+    id='clean_job',
+    name='Clean inactive hosts',
+    replace_existing=True
+)
 
 
 if __name__ == '__main__':
