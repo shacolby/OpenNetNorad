@@ -78,10 +78,6 @@ Install pong_logger webservice
 
     `sudo chown -R www-data: /var/www/OpenNetNorad/pong_logger/`
 
-- Enable threads if your distibution requires
-
-    `echo 'enable-threads = true' | sudo tee -a OpenNetNorad/pong_logger/main.ini`
-
 - Prepare the uwsgi service
 
     `sudo cp OpenNetNorad/scripts/pong_logger.service /lib/systemd/system/`
